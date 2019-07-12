@@ -12,6 +12,7 @@
         <junit.jupiter.engine.version>5.3.1</junit.jupiter.engine.version>
         <junit.jupiter.params.version>5.1.0</junit.jupiter.params.version>
         <junit.platform.runner.version>1.1.0</junit.platform.runner.version>
+        <selenium.version>3.141.59</selenium.version>
     </properties>
 
     <dependencies>
@@ -29,6 +30,11 @@
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-runner</artifactId>
             <version>${junit.platform.runner.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
         </dependency>
     </dependencies>
 </project>
