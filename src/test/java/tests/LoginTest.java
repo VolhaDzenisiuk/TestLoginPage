@@ -1,9 +1,11 @@
 package tests;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,7 +19,7 @@ public class LoginTest {
 
     private WebDriver driver;
 
-    @Before
+    @BeforeEach
     public void openBrowser() throws InterruptedException {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, SECONDS);
@@ -26,7 +28,7 @@ public class LoginTest {
         Thread.sleep(5000); //implicit wait
     }
 
-    @After
+    @AfterEach
     public void closeBrowser() {
         driver.close();
     }
@@ -44,6 +46,6 @@ public class LoginTest {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.pollingEvery(Duration.ofSeconds(2));
         WebElement actual_username = wait.until(ExpectedConditions.presenceOfElementLocated(LoginPage.LOGGED_IN_USERNAME));
-        assertEquals("Selenium Test", actual_username.getText(), "Expected username doesn't match actual.");
+        assertEquals("Expected username doesn't match actual.", "Selenium Test", actual_username.getText());
     }
 }

@@ -1,8 +1,8 @@
 package tests;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,14 +16,14 @@ public class FrameTest {
 
     private WebDriver driver;
 
-    @Before
+    @BeforeEach
     public void openBrowser() {
         driver = new ChromeDriver();
         driver.get(FramePage.URL);
         driver.manage().window().maximize();
     }
 
-    @After
+    @AfterEach
     public void closeBrowser() {
         driver.close();
     }

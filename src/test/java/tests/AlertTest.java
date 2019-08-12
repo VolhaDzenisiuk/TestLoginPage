@@ -1,8 +1,8 @@
 package tests;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
@@ -17,14 +17,14 @@ public class AlertTest {
     private WebDriver driver;
     private WebElement message;
 
-    @Before
+    @BeforeEach
     public void openBrowser() {
         driver = new ChromeDriver();
         driver.get(AlertPage.URL);
         message = driver.findElement(AlertPage.RESULT);
     }
 
-    @After
+    @AfterEach
     public void closeBrowser() {
         driver.close();
     }
