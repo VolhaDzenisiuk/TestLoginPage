@@ -57,13 +57,14 @@ public class AlertTest {
 
     @Test
     public void testJsPrompt() {
+    	String text = "alert test";
         WebElement jsPrompt = driver.findElement(AlertPage.JS_PROMPT);
         jsPrompt.click();
         try {
             Alert alert = driver.switchTo().alert();
-            alert.sendKeys("alert test");
+            alert.sendKeys(text);
             alert.accept();
-            assertEquals("Expected and actual JS prompt alerts don't match", "You entered: alert test", message.getText());
+            assertEquals("Expected and actual JS prompt alerts don't match", "You entered: " + text, message.getText());
         } catch (NoAlertPresentException e) {
             e.printStackTrace();
         }

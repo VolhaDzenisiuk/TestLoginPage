@@ -3,7 +3,6 @@ package tests;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -30,13 +29,19 @@ public class FrameTest {
 
     @Test
     public void testFrame() {
-        ((JavascriptExecutor)driver).executeScript("tinyMCE.activeEditor.setContent('')");
-        ((JavascriptExecutor)driver).executeScript("tinyMCE.activeEditor.selection.setContent('Hello <b>world!</b>')");
         driver.switchTo().frame(FramePage.IFRAME_NAME);
-        WebElement regularText = driver.findElement(FramePage.REGULAR_TEXT);
-        assertEquals("Hello world!", regularText.getText());
+		WebElement frame_body = driver.findElement(FramePage.IFRAME_BODY);
+		frame_body.clear();
+		frame_body.sendKeys("Hello ");
+		driver.switchTo().defaultContent();
 
-        WebElement boldText = driver.findElement(FramePage.BOLD_TEXT);
-        assertEquals("700", boldText.getCssValue("font-weight"));
+		WebElement boldButton = driver.findElement(FramePage.BOLD_BUTTON);
+		boldButton.click();
+		driver.switchTo().frame(FramePage.IFRAME_NAME);
+		frame_body.sendKeys("world!");
+
+		assertEquals("Hello world!", frame_body.getText().replace("\ufeff",""));
+		WebElement boldText = driver.findElement(FramePage.BOLD_TEXT);
+		assertEquals("700", boldText.getCssValue("font-weight"));
     }
 }
