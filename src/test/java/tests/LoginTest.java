@@ -1,11 +1,11 @@
 package tests;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.junit.Assert.assertEquals;
-
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,7 +13,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.LoginPage;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertEquals;
 
 public class LoginTest {
 
@@ -34,7 +39,7 @@ public class LoginTest {
     }
 
     @Test
-    public void login() {
+    public void login() throws IOException {
         final String username = "seleniumtests@tut.by";
         final String password = "123456789zxcvbn";
 
@@ -42,6 +47,9 @@ public class LoginTest {
         driver.findElement(LoginPage.USERNAME).sendKeys(username);
         driver.findElement(LoginPage.PASSWORD).sendKeys(password);
         driver.findElement(LoginPage.LOGIN_BUTTON).click();
+
+		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(scrFile, new File("Screenshots\\screenshot-test.png"));
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.pollingEvery(Duration.ofSeconds(2));
